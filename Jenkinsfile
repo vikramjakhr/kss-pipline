@@ -1,33 +1,11 @@
 pipeline {
-  agent {
-    docker {
-      image 'maven:3.5-jdk-8'
-    }
-    
-  }
+  agent any
   stages {
-    stage('test') {
+    stage('testAndRun') {
       steps {
-        parallel(
-          "test": {
-            sh 'mvn test'
-            
-          },
-          "hello": {
-            sh 'echo \'hello\''
-            
-          }
-        )
-      }
-    }
-    stage('build') {
-      steps {
-        sh 'mvn package'
-      }
-    }
-    stage('deploy') {
-      steps {
-        sh 'ls'
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/vikramjakhr/KSS-Jenkins.git']]])
+        mvn test
+        mvn package
       }
     }
   }
