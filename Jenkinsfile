@@ -41,7 +41,7 @@ pipeline {
     stage('stage5') {
       steps {
         script {
-          sh 'docker build -t maven:tag1 .'
+          sh 'docker build -t maven:tag1'
         }
       }
     }      
