@@ -22,7 +22,7 @@ pipeline {
     }
     stage('build') {
       steps {
-        sh 'mvn pacakge'
+        sh 'mvn package'
       }
     }
     stage('deploy') {
