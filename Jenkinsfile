@@ -7,10 +7,11 @@ pipeline {
         script {
           try {
             timeout(time: 20, unit: 'SECONDS') {
+              input 'Do you want to proceed to the Deployment?'
+            }
             checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/vikramjakhr/KSS-Jenkins.git']]])
             sh 'mvn test'
             sh 'mvn package'
-            }
           } catch(err) {
             err.printStackTrace()
           }
